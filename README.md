@@ -112,7 +112,8 @@ Routing
      ![vlsm6](img/vlsm6.PNG)
 16. Lalu lakukan perintah service networking restart pada setiap klien
 
-### Jawaban Soal
+___
+
 1. Buat file no1.sh di SBY
     `iptables -t nat -A POSTROUTING -s 192.168.0.0/16 -o eth0 -j SNAT --to-source 10.151.76.42`
 2. Buat file no2.sh di SBY
