@@ -57,7 +57,6 @@ ___
     
 ## Jawaban
 ### A, B, dan C
-
 VLSM
 ![vlsm1](img/vlsm1.PNG)
 
@@ -101,23 +100,23 @@ Routing
 8. Apt-get update setiap UML
 9. Install DHCP Server di Mojokerto dengan perintah apt-get install isc-dhcp-server 
 10. Lalu jalankan perintah nano /etc/default/isc-dhcp-server untuk mengisi interface dengan “eth0”
-11. Konfigurasi dhcp dengan perintah : nano /etc/dhcp/dhcpd.conf dan edit menjadi :
+11. Konfigurasi dhcp dengan perintah : nano /etc/dhcp/dhcpd.conf dan edit menjadi:
     ![vlsm4](img/vlsm4.PNG)
 12. Restart dengan perintah service isc-dhcp-server restart. Jika terjadi failed!, maka stop dulu, kemudian start kembali service isc-dhcp-server stop service isc-dhcp-server        start.
 13. Install DHCP-relay di BATU, SURABAYA,dan KEDIRI dengan perintah apt-get install isc-dhcp-relay.
 14. Isi konfigurasi dhcp relay pada BATU , SURABAYA, KEDIRI
     ![vlsm5](img/vlsm5.PNG)
-15. Ubah interface pada SIDOARJO dan GRESIK menjadi :
+15. Ubah interface pada SIDOARJO dan GRESIK menjadi:
      auto eth0
      iface eth0 inet dhcp
-     ![vlsm5](img/vlsm5.PNG)
+     ![vlsm6](img/vlsm6.PNG)
 16. Lalu lakukan perintah service networking restart pada setiap klien
 
 ### Jawaban Soal
-1. Buat file no1.sh di SBY yang berisi 
-`iptables -t nat -A POSTROUTING -s 192.168.0.0/16 -o eth0 -j SNAT --to-source 10.151.76.42`
-2. Buat file no2.sh di SBY yang berisi 
-`iptables -A FORWARD -p tcp --dport 22 -d 10.151.77.80/29 -i eth0 -j DROP`
+1. Buat file no1.sh di SBY
+    `iptables -t nat -A POSTROUTING -s 192.168.0.0/16 -o eth0 -j SNAT --to-source 10.151.76.42`
+2. Buat file no2.sh di SBY
+    `iptables -A FORWARD -p tcp --dport 22 -d 10.151.77.80/29 -i eth0 -j DROP`
 3. Buat file no3.sh di MALANG dan MOJOKERTO yang berisi 
     `iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j DROP`
 4. Buat file no4.sh di MALANG
