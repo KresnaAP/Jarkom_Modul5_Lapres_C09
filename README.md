@@ -27,6 +27,8 @@ Praktikum Modul 5 berupa *Firewall*.
     kalian mengingat bahwa kalian harus setting DHCP RELAY pada router yang menghubungkannya,
     seperti yang kalian telah pelajari di masa lalu.
 
+___
+
 1. Agar topologi yang kalian buat dapat mengakses keluar, kalian diminta untuk mengkonfigurasi
     SURABAYA menggunakan iptables, namun Bibah tidak ingin kalian menggunakan
     MASQUERADE.
