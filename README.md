@@ -20,8 +20,8 @@ Praktikum Modul 5 berupa *Firewall*.
     * Jumlah host pada subnet SIDOARJO 200 Host
     * Jumlah host pada subnet GRESIK 210 Host
 * Karena kalian telah mempelajari Subnetting dan Routing, Bibah meminta kalian untuk membuat
-    topologi tersebut menggunakan teknik CIDR atau VLSM . Setelah melakukan subnetting, (C) kalian
-    juga diharuskan melakukan routing agar setiap perangkat pada jaringan tersebut dapat terhubung.
+    topologi tersebut menggunakan teknik CIDR atau VLSM . Setelah melakukan subnetting,
+* kalian juga diharuskan melakukan routing agar setiap perangkat pada jaringan tersebut dapat terhubung.
 * Tugas berikutnya adalah memberikan ip pada subnet SIDOARJO dan GRESIK secara dinamis
     menggunakan bantuan DHCP SERVER (Selain subnet tersebut menggunakan ip static). Kemudian
     kalian mengingat bahwa kalian harus setting DHCP RELAY pada router yang menghubungkannya,
@@ -54,4 +54,56 @@ ___
     semua aturan iptables harus disimpan pada sistem atau paling tidak kalian menyediakan script sebagai
     backup.
     
+    
 ## Jawaban
+### A, B, dan C
+
+VLSM
+![vlsm1](img/vlsm1.PNG)
+
+Jumlah alamat IP yang dibutuhkan oleh tiap subnet dan labelling netmask berdasarkan jumlah IP yang dibutuhkan.
+| Subnet  | Jumlah IP | Netmask   |
+| ------- | --------- | --------- |
+| A1      | 201       | /24       |
+| A2      | 2         | /30       |
+| A3      | 2         | /30       |
+| A4      | 211       | /24       |
+| A5      | 3         | /29       |
+| Total   | 419       | /23       |
+
+Berdasarkan total IP, netmask yang dibutuhkan, dan netmask /24 ada 2, maka kita dapat menggunakan netmask /22 untuk memberikan pengalamatan IP pada subnet.
+
+Subnetting dengan menggunakan pohon untuk pembagian IP sesuai dengan kebutuhan masing-masing subnet yang ada.
+![vlsm2](img/vlsm2.PNG)
+
+Dari pohon tersebut akan mendapat pembagian IP sebagai berikut.
+![vlsm3](img/vlsm3.PNG)
+
+Routing
+1. SURABAYA	
+    A1	192.168.1.0/24 via 192.168.0.2
+	A4	192.168.2.0/24 via 192.168.0.6
+	A5	192.168.0.8/29 via 192.168.0.6
+	SERVER	10.151.77.80/29 via 192.168.0.2	
+2. KEDIRI	
+    GENERAL	0.0.0.0/0 via 192.168.0.5	
+3. BATU
+    GENERAL	0.0.0.0/0 via 192.168.0.1
+    
+### D
+1. Buat topologi.sh
+2. Edit nano /etc/sysctl.conf pada semua router agar bisa forward ip
+3. Masukkan interface masing-masing uml
+4. Lakukan service networking restart
+5. Masukkan routingan kedalam file route.sh pada masing2 router dan Jalankan dengan source route.sh
+6. Lalu ketikkan perintah bash iptables.sh yang berisi iptables –t nat –A POSTROUTING –o eth0 –j MASQUERADE –s 192.168.0.0/16.
+7. Export proxy di setiap UML
+8. Apt-get update setiap UML
+9. Install DHCP Server di Mojokerto dengan perintah apt-get install isc-dhcp-server 
+10. Lalu jalankan perintah nano /etc/default/isc-dhcp-server untuk mengisi interface dengan “eth0”
+11. Konfigurasi dhcp dengan perintah : nano /etc/dhcp/dhcpd.conf dan edit menjadi :
+    ![vlsm4](img/vlsm4.PNG)
+12. Restart dengan perintah service isc-dhcp-server restart. Jika terjadi failed!, maka stop dulu, kemudian start kembali service isc-dhcp-server stop service isc-dhcp-server        start.
+13. Install DHCP-relay di BATU, SURABAYA,dan KEDIRI dengan perintah apt-get install isc-dhcp-relay.
+14. Isi konfigurasi dhcp relay pada BATU , SURABAYA, KEDIRI
+    ![vlsm5](img/vlsm5.PNG)
