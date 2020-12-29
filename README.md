@@ -139,7 +139,7 @@ ___
     ```
 6. Buat file no6.sh di SBY  
     ```
-    iptables -t nat -A PREROUTING -p tcp -d 10.151.77.82 -m statistic --mode nth --every 2 --packet 0 -j DNAT --to-destination 192.168.0.11:80
+    iptables -t nat -A PREROUTING -p tcp -d 10.151.77.82 -m statistic --mode nth --every 2 --packet 0 -j DNAT --to-destination 192.168.0.10:80
     iptables -t nat -A PREROUTING -p tcp -d 10.151.77.82 -j DNAT --to-destination 192.168.0.11:80
     ```
 
