@@ -114,31 +114,32 @@ Routing
 
 ___
 
-1. Buat file no1.sh di SBY
+### Jawaban Soal
+
+1. Buat file no1.sh di SBY  
     `iptables -t nat -A POSTROUTING -s 192.168.0.0/16 -o eth0 -j SNAT --to-source 10.151.76.42`
-2. Buat file no2.sh di SBY
+2. Buat file no2.sh di SBY  
     `iptables -A FORWARD -p tcp --dport 22 -d 10.151.77.80/29 -i eth0 -j DROP`
-3. Buat file no3.sh di MALANG dan MOJOKERTO yang berisi 
+3. Buat file no3.sh di MALANG dan MOJOKERTO yang berisi   
     `iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j DROP`
-4. Buat file no4.sh di MALANG
+4. Buat file no4.sh di MALANG  
     ```
     iptables -A INPUT -s 192.168.1.0/24 -m time --timestart 07:00 --timestop 17:00 --weekdays Mon,Tue,Wed,Thu,Fri -j ACCEPT
     iptables -A INPUT -s 192.168.1.0/24 -j REJECT 
     ```
-5. Buat file no5.sh di MALANG
+5. Buat file no5.sh di MALANG  
     `iptables -A INPUT -s 192.168.2.0/24 -m time --timestart 07:01 --timestop 16:59 -j REJECT`
-6. Buat file no6.sh di SBY
+6. Buat file no6.sh di SBY  
     ```
     iptables -t nat -A PREROUTING -p tcp -d 10.151.77.82 -m statistic --mode nth --every 2 --packet 0 -j DNAT --to-destination 192.168.0.11:80
     iptables -t nat -A PREROUTING -p tcp -d 10.151.77.82 -j DNAT --to-destination 192.168.0.11:80
     ```
-    Referensi : Turning IPTables into a TCP load balancer for fun and profit (scalingo.com) (roundrobin)
 
-7. Buat file no7.sh di MALANG, MOJOKERTO, SURABAYA
+7. Buat file no7.sh di MALANG, MOJOKERTO, SURABAYA  
     ```
     iptables -N LOGGING
     iptables -A INPUT -j LOGGING
     iptables -A LOGGING -j LOG --log-prefix "Dropped Packet : " --log-level 4
     iptables -A LOGGING -j DROP
     ```
-    Yang DROP diganti LOGGING
+    Yang DROP pada iptables nomor 2 dan 3 diganti LOGGING
