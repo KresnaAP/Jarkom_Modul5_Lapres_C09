@@ -124,7 +124,7 @@ ___
     ```
     iptables -A FORWARD -p tcp --dport 22 -d 10.151.77.80/29 -i eth0 -j DROP
     ```
-3. Buat file no3.sh di MALANG dan MOJOKERTO yang berisi   
+3. Buat file no3.sh di MALANG dan MOJOKERTO
     ```
     iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j DROP
     ```
