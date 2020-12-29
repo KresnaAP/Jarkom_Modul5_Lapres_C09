@@ -9,7 +9,7 @@ Praktikum Modul 5 berupa *Firewall*.
 ## Soal
 * Tugas pertama kalian yaitu membuat topologi jaringan sesuai dengan rancangan yang diberikan
     Bibah seperti dibawah ini :
-    ![Soal](img/soal.PNG)
+    ![Soal](img/soal.PNG)  
     Keterangan : 
     * SURABAYA diberikan IP TUNTAP
     * MALANG merupakan DNS Server diberikan IP DMZ
@@ -79,15 +79,15 @@ Dari pohon tersebut akan mendapat pembagian IP sebagai berikut.
 ![vlsm3](img/vlsm3.PNG)
 
 Routing
-1. SURABAYA	
-    A1	192.168.1.0/24 via 192.168.0.2
-	A4	192.168.2.0/24 via 192.168.0.6
-	A5	192.168.0.8/29 via 192.168.0.6
-	SERVER	10.151.77.80/29 via 192.168.0.2	
-2. KEDIRI	
+1. SURABAYA  
+    A1		192.168.1.0/24 via 192.168.0.2  
+    A4		192.168.2.0/24 via 192.168.0.6  
+    A5		192.168.0.8/29 via 192.168.0.6  
+    SERVER	10.151.77.80/29 via 192.168.0.2	 
+2. KEDIRI  
     GENERAL	0.0.0.0/0 via 192.168.0.5	
-3. BATU
-    GENERAL	0.0.0.0/0 via 192.168.0.1
+3. BATU  
+    GENERAL	0.0.0.0/0 via 192.168.0.1  
     
 ### D
 1. Buat topologi.sh
@@ -117,18 +117,26 @@ ___
 ### Jawaban Soal
 
 1. Buat file no1.sh di SBY  
-    `iptables -t nat -A POSTROUTING -s 192.168.0.0/16 -o eth0 -j SNAT --to-source 10.151.76.42`
+    ```
+    iptables -t nat -A POSTROUTING -s 192.168.0.0/16 -o eth0 -j SNAT --to-source 10.151.76.42
+    ```
 2. Buat file no2.sh di SBY  
-    `iptables -A FORWARD -p tcp --dport 22 -d 10.151.77.80/29 -i eth0 -j DROP`
+    ```
+    iptables -A FORWARD -p tcp --dport 22 -d 10.151.77.80/29 -i eth0 -j DROP
+    ```
 3. Buat file no3.sh di MALANG dan MOJOKERTO yang berisi   
-    `iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j DROP`
+    ```
+    iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j DROP
+    ```
 4. Buat file no4.sh di MALANG  
     ```
     iptables -A INPUT -s 192.168.1.0/24 -m time --timestart 07:00 --timestop 17:00 --weekdays Mon,Tue,Wed,Thu,Fri -j ACCEPT
     iptables -A INPUT -s 192.168.1.0/24 -j REJECT 
     ```
 5. Buat file no5.sh di MALANG  
-    `iptables -A INPUT -s 192.168.2.0/24 -m time --timestart 07:01 --timestop 16:59 -j REJECT`
+    ```
+    iptables -A INPUT -s 192.168.2.0/24 -m time --timestart 07:01 --timestop 16:59 -j REJECT
+    ```
 6. Buat file no6.sh di SBY  
     ```
     iptables -t nat -A PREROUTING -p tcp -d 10.151.77.82 -m statistic --mode nth --every 2 --packet 0 -j DNAT --to-destination 192.168.0.11:80
