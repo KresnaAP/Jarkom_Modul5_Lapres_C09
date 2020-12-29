@@ -72,7 +72,7 @@ Jumlah alamat IP yang dibutuhkan oleh tiap subnet dan labelling netmask berdasar
 
 Berdasarkan total IP, netmask yang dibutuhkan, dan netmask /24 ada 2, maka kita dapat menggunakan netmask /22 untuk memberikan pengalamatan IP pada subnet.
 
-Subnetting dengan menggunakan pohon untuk pembagian IP sesuai dengan kebutuhan masing-masing subnet yang ada.
+Subnetting dengan menggunakan pohon untuk pembagian IP sesuai dengan kebutuhan masing-masing subnet yang ada.  
 ![vlsm2](img/vlsm2.PNG)
 
 Dari pohon tersebut akan mendapat pembagian IP sebagai berikut.
